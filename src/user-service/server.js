@@ -3,6 +3,9 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes";
+import userRoutes from "./routes/userRoutes";
+import swaggerUi from "swagger-ui-express";
+import { specs } from "./config/swagger";
 import passport from "passport";
 import session from "express-session";
 require("./config/passport");
@@ -47,7 +50,9 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes); // Route cho user service
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 // Swagger UI
 
 // Error handling middleware
